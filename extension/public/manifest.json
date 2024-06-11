@@ -1,0 +1,12 @@
+{
+    "manifest_version": 3,
+    "name": "peep'ole",
+    "version": "1.0.0",
+    "description": "A password manager based on face recognition.",
+    "action": {
+        "default_popup": "index.html"
+    },
+    "icons": {
+        "32": "icon.png"
+    }
+}
