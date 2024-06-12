@@ -1,7 +1,10 @@
 function ExtensionName() {
   return (
     <>
-      <h1>peep'ole</h1>
+      <h1 className="text-3xl text-orange-300 font-bold underline">
+        {" "}
+        peep 'ole
+      </h1>
     </>
   );
 }
