@@ -1,4 +1,5 @@
 import OnlineStatus from "./OnlineStatus";
+import RetakePhoto from "./RetakePhoto";
 import ToggleAutofill from "./ToggleAutofill";
 
 function Navbar() {
@@ -6,7 +7,7 @@ function Navbar() {
     <>
       <div className="bg-rose-300 justify-between rounded-2xl px-2 items-center flex basis-5/12">
         <OnlineStatus />
-        <ToggleAutofill />
+        <RetakePhoto />
       </div>
     </>
   );
