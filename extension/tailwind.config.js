@@ -4,10 +4,10 @@ export default {
   theme: {
     extend: {
       height: {
-        ext: "700px",
+        ext: "600px",
       },
       width: {
-        ext: "500px",
+        ext: "400px",
       },
     },
   },
