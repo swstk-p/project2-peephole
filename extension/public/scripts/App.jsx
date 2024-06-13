@@ -4,7 +4,9 @@ import Header from "./Header";
 function App() {
   return (
     <>
-      <Header />
+      <div className="h-ext w-ext">
+        <Header />
+      </div>
     </>
   );
 }
