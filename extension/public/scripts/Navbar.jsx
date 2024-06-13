@@ -1,7 +1,11 @@
+import OnlineStatus from "./OnlineStatus";
+
 function Navbar() {
   return (
     <>
-      <div className="rounded-2xl flex basis-6/12"> Hello </div>{" "}
+      <div className="rounded-2xl px-2 items-center flex basis-5/12">
+        <OnlineStatus />
+      </div>
     </>
   );
 }
