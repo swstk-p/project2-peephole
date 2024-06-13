@@ -1,11 +1,10 @@
 import { useState } from "react";
 import "./assets/App.css";
-import ExtensionName from "./ExtensionName.jsx";
-
+import Header from "./Header";
 function App() {
   return (
     <>
-      <ExtensionName />
+      <Header />
     </>
   );
 }
