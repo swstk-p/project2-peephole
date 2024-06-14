@@ -8,7 +8,7 @@ function Logo() {
             src="../images/peephole.jpg"></img>
         </div>
         <div className="p-1">
-          <span className="text-xl font-extrabold">peep'ole</span>
+          <span className="text-xl font-extrabold"> peep 'ole</span>
         </div>
       </div>
     </>
