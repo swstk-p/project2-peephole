@@ -1,5 +1,9 @@
-TODO2: try the getusermedia
+TODO1: check if there is a link for the settings
+TODO2: try the getusermedia and determine if instructions are shown or camera is activated
 
 TODO (LATER):
     - AFTER LOGIN NAVBAR: ONLINE-STATUS, TOGGLE-AUTOFILL, LOGOUT
-    - BEFORE LOGIN NAVBAR: ONLINE-STATUS, RETAKE ANCHOR PHOTO, DELETE ACC 
+    - BEFORE LOGIN NAVBAR: ONLINE-STATUS, RETAKE ANCHOR PHOTO, DELETE ACC
+
+NOTE
+    - the id of the extension must be set in manifest in order to keep it same.

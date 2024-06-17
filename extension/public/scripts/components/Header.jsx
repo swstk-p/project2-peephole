@@ -1,9 +1,10 @@
 import Logo from "./Logo";
 import Navbar from "./Navbar";
+
 function Header() {
   return (
     <>
-      <div className="flex p-1 w-full justify-between">
+      <div className="border rounded-lg border-rose-400 flex p-1 w-full justify-between">
         <Logo />
         <Navbar />
       </div>
