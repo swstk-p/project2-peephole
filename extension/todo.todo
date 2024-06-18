@@ -1,10 +1,12 @@
-TODO0: set pictures for instructions
-TODO0: check if there is a link for the settings
-TODO0: create instruction components
+TODO1: create instruction components for each instruction to later map with array of instruction objects.
+TODO2: check if there is a link for the settings
+TODO3: dot env
 
 TODO (LATER):
+    - Change the font of the logo
     - AFTER LOGIN NAVBAR: ONLINE-STATUS, TOGGLE-AUTOFILL, LOGOUT
     - BEFORE LOGIN NAVBAR: ONLINE-STATUS, RETAKE ANCHOR PHOTO, DELETE ACC
+    - Set proper images for camera instruction
 
 NOTE
     - the id of the extension must be set in manifest in order to keep it same.
