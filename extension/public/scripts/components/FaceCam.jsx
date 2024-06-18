@@ -29,8 +29,10 @@ function FaceCam() {
   return (
     <>
       <div className="flex items-center justify-center w-80 h-80 rounded-lg border border-purple-400">
-        <video ref={videoRef} autoPlay></video> //doesn't work if it's autoplay
-        instead of autoPlay
+        <video
+          className="h-80 w-80 object-cover rounded-lg"
+          ref={videoRef}
+          autoPlay></video>
       </div>
     </>
   );
