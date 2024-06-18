@@ -3,9 +3,9 @@ import FaceCam from "./FaceCam";
 function MainBody() {
   return (
     <>
-      <div className="flex items-center justify-center w-full h-96 rounded-lg">
+      <div className="border border-yellow-400 flex flex-col items-center justify-start w-full h-96 rounded-lg">
         <FaceCam />
-      </div>
+      </div>{" "}
     </>
   );
 }
