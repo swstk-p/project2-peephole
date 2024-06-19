@@ -1,33 +1,52 @@
+import Instruction from "./Instruction";
+
 function CameraInstructions() {
+  let instructions = [
+    {
+      directionElem: true,
+      direction: (
+        <span>
+          1. Go to{" "}
+          <a className="underline font-semibold text-underline">
+            extension settings
+          </a>
+          .
+        </span>
+      ),
+      imgSrc: null,
+    },
+    {
+      directionElem: false,
+      direction: "2. Locate the Privacy and security setting.",
+      imgSrc: "../../images/instruction1.png",
+    },
+    {
+      directionElem: false,
+      direction: "3. Navigate to the camera section.",
+      imgSrc: "../../images/instruction2.png",
+    },
+    {
+      directionElem: false,
+      direction: "4. Set the permission to Allow.",
+      imgSrc: "../../images/instruction3.png",
+    },
+  ];
   return (
     <>
-      <div className="flex flex-col items-center w-full h-96 rounded-lg">
+      <div className="border border-pink-400 flex flex-col items-center w-full h-96 rounded-lg">
         <span className="my-1 text-xs font-semibold ">
           This extension requires camera permissions to recognize you.
         </span>
-        <div className="space-y-4 mt-3 px-6 text-lg flex flex-col items-start w-full h-80 rounded-lg">
-          <span>
-            1. Go to{" "}
-            <a className="underline font-semibold text-underline">
-              extension settings
-            </a>
-            .
-          </span>
-          <span>2. Locate the Privacy and security tab.</span>
-          <img
-            src="../../images/instruction1.png"
-            className="w-full h-24 object-cover"
-          />
-          <span>3. Locate the Camera section.</span>
-          <img
-            src="../../images/instruction2.png"
-            className="w-full h-24 object-cover"
-          />
-          <span>4. Change the permission to Allow.</span>
-          <img
-            src="../../images/instruction3.png"
-            className="w-full h-24 object-cover"
-          />
+        <div className="space-y-4 mt-3 px-6 flex flex-col items-start w-full h-80 rounded-lg">
+          {instructions.map(function (data) {
+            return (
+              <Instruction
+                directionElem={data.directionElem}
+                direction={data.direction}
+                imgSrc={data.imgSrc}
+              />
+            );
+          })}
         </div>
       </div>
     </>
