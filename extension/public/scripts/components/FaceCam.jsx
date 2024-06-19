@@ -28,7 +28,7 @@ function FaceCam() {
   }, [faceStream]);
   return (
     <>
-      <div className="flex items-center justify-center w-72 h-72 rounded-lg border border-purple-400">
+      <div className="flex items-center justify-center w-72 h-72 rounded-lg">
         <video
           className="h-72 w-72 object-cover rounded-lg"
           ref={videoRef}
