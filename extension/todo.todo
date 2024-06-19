@@ -1,10 +1,14 @@
-TODO1: check compatibility for other browsers
+TODO0: Set proper images for camera instruction
+     : Change the font of the logo
+TODO1: Explore datasets and training
+TODO2: Explore auto-filling
 
 TODO (LATER):
     - Change the font of the logo
-    - AFTER LOGIN NAVBAR: ONLINE-STATUS, TOGGLE-AUTOFILL, LOGOUT
-    - BEFORE LOGIN NAVBAR: ONLINE-STATUS, RETAKE ANCHOR PHOTO, DELETE ACC
+    - AFTER LOGIN NAVBAR: ONLINE-STATUS, (OPTIONS i.e. customization, preferences etc) SETTINGS, LOGOUT
+    - BEFORE LOGIN NAVBAR: ONLINE-STATUS, RETAKE ANCHOR PHOTO, (EXT ie. site settings) SETTINGS
     - Set proper images for camera instruction
+    - Check compatibility for other browsers
 
 NOTE
-    - the id of the extension must be set in manifest in order to keep it same.
+    - (OPT) SETTINGS contains toggle autofill, toggle auto sign in (if possible), retake photo, delete account, CRUD for (groups / websites)
