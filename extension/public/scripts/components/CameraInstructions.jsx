@@ -7,7 +7,17 @@ function CameraInstructions() {
       direction: (
         <span>
           1. Go to{" "}
-          <a className="underline font-semibold text-underline">
+          <a
+            href="#"
+            onClick={() => {
+              // create a new tab for the settings
+              chrome.tabs.create({
+                url:
+                  "chrome://settings/content/siteDetails?site=chrome-extension://" +
+                  chrome.runtime.id,
+              });
+            }}
+            className="hover:text-rose-400 underline font-semibold text-underline">
             extension settings
           </a>
           .
