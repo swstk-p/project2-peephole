@@ -27,12 +27,12 @@ function CameraInstructions() {
     },
     {
       directionElem: false,
-      direction: "2. Locate the Privacy and security setting.",
+      direction: "2. Navigate to the Privacy and security setting.",
       imgSrc: "../../images/instruction1.png",
     },
     {
       directionElem: false,
-      direction: "3. Navigate to the camera section.",
+      direction: "3. Locate the camera section.",
       imgSrc: "../../images/instruction2.png",
     },
     {
