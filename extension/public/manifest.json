@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "peep'ole",
+    "name": "peephole",
     "version": "1.0.0",
     "description": "A password manager based on face recognition.",
     "action": {

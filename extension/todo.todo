@@ -1,10 +1,11 @@
-TODO0: Set proper images for camera instruction
-     : Change the font of the logo
+TODO0: Put clear pics
+     : Check header and main body separation
+     : Look into logo
 TODO1: Explore datasets and training
 TODO2: Explore auto-filling
 
 TODO (LATER):
-    - Change the font of the logo
+    - Try different fonts for body
     - AFTER LOGIN NAVBAR: ONLINE-STATUS, (OPTIONS i.e. customization, preferences etc) SETTINGS, LOGOUT
     - BEFORE LOGIN NAVBAR: ONLINE-STATUS, RETAKE ANCHOR PHOTO, (EXT ie. site settings) SETTINGS
     - Set proper images for camera instruction
