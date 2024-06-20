@@ -7,7 +7,7 @@ import ExtSettings from "./ExtSettings";
 function Navbar() {
   return (
     <>
-      <div className="justify-between rounded-2xl px-2 items-center flex basis-4/12">
+      <div className="justify-between rounded-2xl items-center flex basis-4/12">
         <OnlineStatus />
         <RetakePhoto />
         <ExtSettings />

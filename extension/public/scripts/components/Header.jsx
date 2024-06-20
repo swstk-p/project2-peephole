@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 function Header() {
   return (
     <>
-      <div className="rounded-lg flex p-1 w-full justify-between">
+      <div className="px-5 rounded-lg flex py-1 w-full justify-between">
         <Logo />
         <Navbar />
       </div>{" "}

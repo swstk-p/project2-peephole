@@ -1,7 +1,7 @@
 function Instruction({ directionElem, direction, imgSrc }) {
   let imgComponent =
     imgSrc === null ? null : (
-      <img src={imgSrc} className="w-full h-24 object-cover rounded-lg" />
+      <img src={imgSrc} className=" w-full h-20 object-cover rounded-lg" />
     );
   let directionComponent =
     directionElem === true ? direction : <span>{direction}</span>;

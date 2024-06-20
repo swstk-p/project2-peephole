@@ -5,11 +5,13 @@ import MainBody from "./MainBody";
 function App() {
   return (
     <>
-      <div className="mb-5">
-        <Header />
-      </div>
-      <div className="mt-5">
-        <MainBody />
+      <div>
+        <div className="mt-3 mb-5">
+          <Header />
+        </div>
+        <div className="mt-5">
+          <MainBody />
+        </div>
       </div>
     </>
   );
