@@ -5,7 +5,7 @@ function Logo() {
         <div className="border-2 border-black rounded-full">
           <img
             className="w-8 object-cover rounded-full"
-            src="../images/peephole.png"></img>
+            src="../images/logo.png"></img>
         </div>
         <div className="rounded-md">
           <span className="text-lg font-logo font-extrabold"> peephole</span>
