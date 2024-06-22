@@ -4,7 +4,7 @@ import CameraInstructions from "./CameraInstructions";
 
 function MainBody() {
   const initialDivClass =
-    "px-5 flex flex-col items-center justify-start w-full rounded-lg";
+    "px-5 pb-1 flex flex-col items-center justify-start w-full rounded-lg";
   const [permitState, setPermitState] = useState("");
   const [divClass, setDivClass] = useState(initialDivClass);
   const [component, setComponent] = useState(null);
