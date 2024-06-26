@@ -1,4 +1,7 @@
+TODO0: Map detections sequntially
+     : Draw rectangle around face
 TODO1: Explore datasets and training
+     : Load pretrained models for application building while training custom models side by side
 TODO2: Explore auto-filling
 
 TODO (LATER):
