@@ -1,4 +1,4 @@
-TODO0: try adjusting stream resolution for more stable face detection
+TODO0: try creating bounding box that covers entire face (use second bounding box)
 TODO1: Explore datasets and training
      : Load pretrained models for application building while training custom models side by side
 TODO2: Explore auto-filling
