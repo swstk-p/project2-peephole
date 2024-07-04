@@ -103,13 +103,32 @@ function FaceCam() {
       });
       // logging
       console.log("RESIZED:", resizedDetection);
+      console.log("Box_x:", resizedDetection.alignedRect.box.x);
+      console.log(
+        "Constructor parameters:",
+        resizedDetection.detection.box.x,
+        resizedDetection.detection.box.y,
+        resizedDetection.detection.box.x + resizedDetection.detection.box.width,
+        resizedDetection.detection.box.y + resizedDetection.detection.box.height
+      );
       // create a DrawBox obj using resizedDetection's box and DrawBoxOptions
       const drawBox = new faceapi.draw.DrawBox(
         resizedDetection.alignedRect.box,
         new DrawBoxOptions({ boxColor: "#5efc03", lineWidth: 1 })
       );
       const drawBox2 = new faceapi.draw.DrawBox(
-        resizedDetection.detection.box,
+        new faceapi.Box(
+          new faceapi.BoundingBox(
+            resizedDetection.detection.box.x,
+            resizedDetection.detection.box.y,
+            resizedDetection.detection.box.x +
+              resizedDetection.detection.box.width,
+            resizedDetection.detection.box.y +
+              resizedDetection.detection.box.height,
+            false
+          ),
+          false
+        ),
         new DrawBoxOptions({ boxColor: "#ffffff", lineWidth: 1 })
       );
       // draw on the canvas with drawBox
