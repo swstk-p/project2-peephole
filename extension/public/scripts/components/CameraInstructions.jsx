@@ -1,5 +1,9 @@
 import Instruction from "./Instruction";
 
+/**
+ * React component to display instructions for enabling web cam.
+ * @returns instrctions jsx
+ */
 function CameraInstructions() {
   let instructions = [
     {

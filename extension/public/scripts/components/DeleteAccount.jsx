@@ -1,5 +1,9 @@
 import { IoPersonRemoveOutline } from "react-icons/io5";
 
+/**
+ *React component to display icon for account deletion.
+ * @returns icon jsx for account deletion
+ */
 function DeleteAccount() {
   return (
     <>

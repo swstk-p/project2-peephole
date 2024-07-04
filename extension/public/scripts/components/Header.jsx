@@ -1,6 +1,10 @@
 import Logo from "./Logo";
 import Navbar from "./Navbar";
 
+/**
+ * React component to display the extension header.
+ * @returns jsx to display header components
+ */
 function Header() {
   return (
     <>

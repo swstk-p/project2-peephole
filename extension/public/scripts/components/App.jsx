@@ -2,6 +2,10 @@ import { useState } from "react";
 import Header from "./Header";
 import MainBody from "./MainBody";
 
+/**
+ * React component to render application.
+ * @returns app jsx component
+ */
 function App() {
   return (
     <>

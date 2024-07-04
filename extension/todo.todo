@@ -1,5 +1,4 @@
-TODO0: generate doc strings
-     : click photo
+TODO0: save detected photos
 TODO1: Explore datasets and training
      : Load pre-trained models for application building while training custom models side by side
 TODO2: Explore auto-filling

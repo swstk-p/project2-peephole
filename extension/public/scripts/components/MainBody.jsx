@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import FaceCam from "./FaceCam";
 import CameraInstructions from "./CameraInstructions";
 
+/**
+ * React component to display the extension's main body.
+ * @returns extension main body jsx
+ */
 function MainBody() {
   const initialDivClass =
     "px-5 pb-1 flex flex-col items-center justify-start w-full rounded-lg";
@@ -10,6 +14,11 @@ function MainBody() {
   const [component, setComponent] = useState(null);
 
   useEffect(() => {
+    /**
+     * Obtains the state for extension's camera permission and sets it to component permission state.
+     * @async
+     * @returns undefined
+     */
     async function getCamPermissionState() {
       // get the permission state of camera and set it to a component state
       try {

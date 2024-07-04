@@ -1,3 +1,7 @@
+/**
+ * React component to display extension logo.
+ * @returns extension logo jsx
+ */
 function Logo() {
   return (
     <>

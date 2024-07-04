@@ -1,3 +1,7 @@
+/**
+ * React component to display online status indicator.
+ * @returns online indicator jsx
+ */
 function OnlineStatus() {
   return (
     <>

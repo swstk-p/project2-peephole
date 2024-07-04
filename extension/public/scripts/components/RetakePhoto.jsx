@@ -1,6 +1,10 @@
 import { IconContext } from "react-icons/lib";
 import { RxCamera } from "react-icons/rx";
 
+/**
+ * React component to display the camera icon.
+ * @returns camera icon jsx
+ */
 function RetakePhoto() {
   return (
     <>

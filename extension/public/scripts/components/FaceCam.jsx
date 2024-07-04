@@ -15,7 +15,7 @@ function FaceCam() {
 
   useEffect(() => {
     /**
-     * Obtains webcam video stream and sets stream component state.
+     * Obtains webcam video stream and sets component stream state.
      * @async
      * @returns undefined
      */
@@ -44,7 +44,7 @@ function FaceCam() {
 
   useEffect(() => {
     /**
-     * Loads detector models and sets loaded component state.
+     * Loads detector models and sets component loaded state.
      * @returns undefined
      * @async
      */
@@ -59,7 +59,7 @@ function FaceCam() {
 
   useEffect(() => {
     /**
-     * Detects face and sets detection component state.
+     * Detects face and sets component detection state.
      * @async
      * @returns undefined
      */

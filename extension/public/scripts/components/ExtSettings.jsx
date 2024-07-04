@@ -1,5 +1,9 @@
 import { IoSettingsOutline } from "react-icons/io5";
 
+/**
+ * React component to display extension settings icon.
+ * @returns jsx for extension settings icon
+ */
 function ExtSettings() {
   return (
     <>

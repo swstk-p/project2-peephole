@@ -4,6 +4,10 @@ import RetakePhoto from "./RetakePhoto";
 import ToggleAutofill from "./ToggleAutofill";
 import ExtSettings from "./ExtSettings";
 
+/**
+ * React component to display extension navbar.
+ * @returns navbar jsx
+ */
 function Navbar() {
   return (
     <>

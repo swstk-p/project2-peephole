@@ -1,3 +1,7 @@
+/**
+ * React component to display the autofill icon.
+ * @returns autofill icon jsx
+ */
 function ToggleAutofill() {
   return (
     <>

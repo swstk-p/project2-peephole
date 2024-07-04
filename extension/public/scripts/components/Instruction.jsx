@@ -1,3 +1,8 @@
+/**
+ *React component to display a single instruction.
+ * @param {*} param0 props
+ * @returns jsx for instruction
+ */
 function Instruction({ directionElem, direction, imgSrc }) {
   let imgComponent =
     imgSrc === null ? null : (
