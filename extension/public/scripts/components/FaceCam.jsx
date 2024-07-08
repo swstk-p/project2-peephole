@@ -9,9 +9,82 @@ import { DrawBoxOptions } from "face-api.js/build/es6/draw/DrawBox";
 function FaceCam() {
   const [faceStream, setFaceStream] = useState(null);
   const [faceDetection, setFaceDetection] = useState(undefined);
+  const [boxDrawn, setBoxDrawn] = useState(false);
   const [modelsLoaded, setModelsLoaded] = useState(false);
   const videoRef = useRef(null); //setting a reference object to assign later to video element
   const canvasRef = useRef(null);
+
+  /**
+   * Calculates new coordinates for a given box based on size and offset factors.
+   * @param {*} box the box whose coordinates are to be calculated
+   * @param {*} sizeFactor the factor by which the height of box is adjusted
+   * @param {*} yOffsetFactor the factor by which the box vertical position is offset
+   * @returns coordinates object {left, top, right, bottom}
+   */
+  function calculateBoxCoordinates(box, sizeFactor, yOffsetFactor) {
+    const boxSize = box.height + box.height * sizeFactor;
+    const yOffsetSize = box.height * yOffsetFactor;
+    return {
+      left: box.x - parseFloat(boxSize - box.width) / 2,
+      top: box.y - parseFloat(boxSize - box.height) / 2 - yOffsetSize,
+      right: box.x - parseFloat(boxSize - box.width) / 2 + boxSize,
+      bottom:
+        box.y - parseFloat(boxSize - box.height) / 2 - yOffsetSize + boxSize,
+    };
+  }
+  /**
+   * Provides a box with default size and offset vertical position.
+   * @param {*} faceDetection detection object
+   * @returns DrawBox object of default size and offset vertical position
+   */
+  function getDefaultBox(faceDetection) {
+    const offsetFactor = 0.18;
+    // resize detections to match video dimensions
+    const resizedDetection = faceapi.resizeResults(faceDetection, {
+      width: videoRef.current.getBoundingClientRect().width,
+      height: videoRef.current.getBoundingClientRect().height,
+    });
+    const offSetSize = offsetFactor * resizedDetection.alignedRect.box.height;
+    const left = resizedDetection.alignedRect.box.x;
+    const top = resizedDetection.alignedRect.box.y - offSetSize;
+    const right = left + resizedDetection.alignedRect.box.width;
+    const bottom = top + resizedDetection.alignedRect.box.height;
+
+    const defaultBox = new faceapi.draw.DrawBox(
+      new faceapi.Box(
+        new faceapi.BoundingBox(left, top, right, bottom, false),
+        false
+      ),
+      new DrawBoxOptions({ boxColor: "red", lineWidth: 2 })
+    );
+    return defaultBox;
+  }
+  /**
+   * Provides a box object with adjusted size and offset vertical position
+   * @param {*} faceDetection detection object
+   * @returns DrawBox object with adjusted size and offset vertical position
+   */
+  function getAdjustedBox(faceDetection) {
+    const sizeFactor = 1.0;
+    const yOffsetFactor = 0.18;
+    // resize detections to match video dimensions
+    const resizedDetection = faceapi.resizeResults(faceDetection, {
+      width: videoRef.current.getBoundingClientRect().width,
+      height: videoRef.current.getBoundingClientRect().height,
+    });
+    const { left, top, right, bottom } = calculateBoxCoordinates(
+      resizedDetection.alignedRect.box,
+      sizeFactor,
+      yOffsetFactor
+    );
+    return new faceapi.draw.DrawBox(
+      new faceapi.Box(
+        new faceapi.BoundingBox(left, top, right, bottom, false),
+        false
+      ),
+      new DrawBoxOptions({ boxColor: "#5efc03", lineWidth: 1.5 })
+    );
+  }
 
   useEffect(() => {
     /**
@@ -108,97 +181,64 @@ function FaceCam() {
   }, [videoRef, canvasRef]);
 
   useEffect(() => {
-    /**
-     * Calculates new coordinates for a given box based on size and offset factors.
-     * @param {*} box the box whose coordinates are to be calculated
-     * @param {*} sizeFactor the factor by which the height of box is adjusted
-     * @param {*} yOffsetFactor the factor by which the box vertical position is offset
-     * @returns coordinates object {left, top, right, bottom}
-     */
-    function calculateBoxCoordinates(box, sizeFactor, yOffsetFactor) {
-      const boxSize = box.height + box.height * sizeFactor;
-      const yOffsetSize = box.height * yOffsetFactor;
-      return {
-        left: box.x - parseFloat(boxSize - box.width) / 2,
-        top: box.y - parseFloat(boxSize - box.height) / 2 - yOffsetSize,
-        right: box.x - parseFloat(boxSize - box.width) / 2 + boxSize,
-        bottom:
-          box.y - parseFloat(boxSize - box.height) / 2 - yOffsetSize + boxSize,
-      };
-    }
-    /**
-     * Provides a box with default size and offset vertical position.
-     * @param {*} faceDetection detection object
-     * @returns DrawBox object of default size and offset vertical position
-     */
-    function getDefaultBox(faceDetection) {
-      const offsetFactor = 0.18;
-      // resize detections to match video dimensions
-      const resizedDetection = faceapi.resizeResults(faceDetection, {
-        width: videoRef.current.getBoundingClientRect().width,
-        height: videoRef.current.getBoundingClientRect().height,
-      });
-      const offSetSize = offsetFactor * resizedDetection.alignedRect.box.height;
-      const left = resizedDetection.alignedRect.box.x;
-      const top = resizedDetection.alignedRect.box.y - offSetSize;
-      const right = left + resizedDetection.alignedRect.box.width;
-      const bottom = top + resizedDetection.alignedRect.box.height;
-
-      const defaultBox = new faceapi.draw.DrawBox(
-        new faceapi.Box(
-          new faceapi.BoundingBox(left, top, right, bottom, false),
-          false
-        ),
-        new DrawBoxOptions({ boxColor: "red", lineWidth: 2 })
-      );
-      return defaultBox;
-    }
-    /**
-     * Provides a box object with adjusted size and offset vertical position
-     * @param {*} faceDetection detection object
-     * @returns DrawBox object with adjusted size and offset vertical position
-     */
-    function getAdjustedBox(faceDetection) {
-      const sizeFactor = 1.0;
-      const yOffsetFactor = 0.18;
-      // resize detections to match video dimensions
-      const resizedDetection = faceapi.resizeResults(faceDetection, {
-        width: videoRef.current.getBoundingClientRect().width,
-        height: videoRef.current.getBoundingClientRect().height,
-      });
-      const { left, top, right, bottom } = calculateBoxCoordinates(
-        resizedDetection.alignedRect.box,
-        sizeFactor,
-        yOffsetFactor
-      );
-      return new faceapi.draw.DrawBox(
-        new faceapi.Box(
-          new faceapi.BoundingBox(left, top, right, bottom, false),
-          false
-        ),
-        new DrawBoxOptions({ boxColor: "#5efc03", lineWidth: 1.5 })
-      );
-    }
     // erase rectangle if face detection changes
     canvasRef.current
       .getContext("2d")
       .clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    // set component drawn state false
+    setBoxDrawn(false);
     // display canvas if face detected
     if (faceDetection !== undefined) {
       const drawBox = getAdjustedBox(faceDetection);
       // draw on the canvas with drawBox
       drawBox.draw(canvasRef.current);
+      setBoxDrawn(true);
     }
   }, [faceDetection]);
+
+  useEffect(() => {
+    // effect download detected face
+    if (boxDrawn && videoRef.current) {
+      const adjustedBox = getAdjustedBox(faceDetection);
+      const canvas = document.createElement("canvas");
+      canvas.width = canvasRef.current.width;
+      canvas.height = canvasRef.current.height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(
+        videoRef.current,
+        adjustedBox.box.x,
+        adjustedBox.box.y,
+        adjustedBox.box.width,
+        adjustedBox.box.height
+      );
+      // ctx.drawImage(
+      //   videoRef.current,
+      //   adjustedBox.x,
+      //   adjustedBox.y,
+      //   canvas.width,
+      //   canvas.height
+      // );
+      const a = document.createElement("a");
+      a.href = canvas.toDataURL();
+      // logging
+      console.log("HREF:", a.href);
+      console.log("CANVAS:", canvas);
+      console.log("BOX WIDTH TYPE:", typeof adjustedBox.box.width);
+      console.log("BOX:", adjustedBox);
+      chrome.tabs.create({
+        url: a.href,
+      });
+    }
+  }, [boxDrawn]);
 
   return (
     <>
       <div className="relative flex items-center justify-center w-full h-full rounded-lg">
         <video
-          className="flex w-full aspect-square object-cover rounded-lg z-0"
+          className="flex w-full aspect-square object-cover rounded-lg z-10"
           ref={videoRef}
           autoPlay></video>
-        <canvas className="rounded-lg absolute z-10" ref={canvasRef}></canvas>
+        <canvas className="rounded-lg absolute z-20" ref={canvasRef}></canvas>
       </div>
     </>
   );
