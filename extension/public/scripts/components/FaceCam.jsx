@@ -13,6 +13,7 @@ function FaceCam() {
   const [modelsLoaded, setModelsLoaded] = useState(false);
   const videoRef = useRef(null); //setting a reference object to assign later to video element
   const canvasRef = useRef(null);
+  const smallCanvasRef = useRef(null);
 
   /**
    * Calculates new coordinates for a given box based on size and offset factors.
@@ -197,7 +198,7 @@ function FaceCam() {
   }, [faceDetection]);
 
   useEffect(() => {
-    // effect download detected face
+    // effect to download detected face
     if (boxDrawn && videoRef.current) {
       const adjustedBox = getAdjustedBox(faceDetection);
       const canvas = document.createElement("canvas");
@@ -206,28 +207,65 @@ function FaceCam() {
       const ctx = canvas.getContext("2d");
       ctx.drawImage(
         videoRef.current,
-        adjustedBox.box.x,
+        videoRef.current.getBoundingClientRect().width + adjustedBox.box.x,
         adjustedBox.box.y,
-        adjustedBox.box.width,
-        adjustedBox.box.height
+        canvas.width,
+        canvas.height,
+        0,
+        0,
+        canvas.width,
+        canvas.height
       );
-      // ctx.drawImage(
-      //   videoRef.current,
-      //   adjustedBox.x,
-      //   adjustedBox.y,
-      //   canvas.width,
-      //   canvas.height
-      // );
       const a = document.createElement("a");
       a.href = canvas.toDataURL();
       // logging
       console.log("HREF:", a.href);
-      console.log("CANVAS:", canvas);
-      console.log("BOX WIDTH TYPE:", typeof adjustedBox.box.width);
-      console.log("BOX:", adjustedBox);
+      console.log("CANVASREF WIDTH:", canvasRef.current.width);
+      console.log("CANVASREF HEIGHT:", canvasRef.current.height);
+      console.log(
+        "VIDEOREF WIDTH:",
+        videoRef.current.getBoundingClientRect().width
+      );
+      console.log(
+        "VIDEOREF HEIGHT:",
+        videoRef.current.getBoundingClientRect().height
+      );
+      console.log("BOX X:", adjustedBox.box.x);
+      console.log("BOX Y:", adjustedBox.box.y);
+      console.log("DRAWBOX:", adjustedBox);
       chrome.tabs.create({
         url: a.href,
       });
+    }
+  }, [boxDrawn]);
+
+  useEffect(() => {
+    // debugging
+    if (boxDrawn) {
+      smallCanvasRef.current
+        .getContext("2d")
+        .clearRect(
+          0,
+          0,
+          smallCanvasRef.current.width,
+          smallCanvasRef.current.height
+        );
+      const adjustedBox = getAdjustedBox(faceDetection);
+      const canvas = smallCanvasRef.current;
+      canvas.width = canvasRef.current.width;
+      canvas.height = canvasRef.current.height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(
+        videoRef.current,
+        videoRef.current.getBoundingClientRect().width + adjustedBox.box.x,
+        adjustedBox.box.y,
+        adjustedBox.box.width,
+        adjustedBox.box.height,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
     }
   }, [boxDrawn]);
 
@@ -240,6 +278,9 @@ function FaceCam() {
           autoPlay></video>
         <canvas className="rounded-lg absolute z-20" ref={canvasRef}></canvas>
       </div>
+      <canvas
+        className="rounded-md border aspect-square border-black h-32 w-32 mt-3"
+        ref={smallCanvasRef}></canvas>
     </>
   );
 }

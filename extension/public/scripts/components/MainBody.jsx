@@ -44,7 +44,7 @@ function MainBody() {
 
   return (
     <>
-      <div className={divClass}>{component}</div>
+      <div className={divClass}> {component} </div>{" "}
     </>
   );
 }
