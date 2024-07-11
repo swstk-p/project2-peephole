@@ -96,8 +96,11 @@ function FaceCam() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
           video: {
-            width: videoRef.current.getBoundingClientRect().width,
-            height: videoRef.current.getBoundingClientRect().height,
+            // commented
+            // width: videoRef.current.getBoundingClientRect().width,
+            // height: videoRef.current.getBoundingClientRect().height,
+            width: 1280,
+            height: 720,
           },
           audio: false,
         });
@@ -152,11 +155,16 @@ function FaceCam() {
               videoRef.current,
               new faceapi.TinyFaceDetectorOptions({
                 size: 96,
+                // size: 32, commented
                 scoreThreshold: 0.3,
               })
             )
             .withFaceLandmarks(true);
           setFaceDetection(detection);
+          // logging
+          if (detection !== undefined) {
+            console.log("DETECTED FACE");
+          }
         } catch (err) {
           console.log(`DETECTION ERROR: ${err}`);
         }
@@ -196,19 +204,23 @@ function FaceCam() {
       // draw on the canvas with drawBox
       drawBox.draw(canvasRef.current);
       setBoxDrawn(true);
+
+      // logging
+      console.log("DRAWBOX BOX:", drawBox.box);
     }
   }, [faceDetection]);
 
   useEffect(() => {
     // effect to download detected face
     if (boxDrawn && videoRef.current) {
+      // get coordinates of the detection box
       const adjustedBox = getAdjustedBox(faceDetection);
+      // create canvas element on which the detection box image is drawn
       const canvas = document.createElement("canvas");
       canvas.width = canvasRef.current.width;
       canvas.height = canvasRef.current.height;
       const ctx = canvas.getContext("2d");
-      const scale = canvasRef.current.width / adjustedBox.box.width;
-      const scaledDims = adjustedBox.box.width * scale;
+      // draw image on canvas so that it can be set as a URL
       ctx.drawImage(
         videoRef.current,
         adjustedBox.box.x,
@@ -217,11 +229,13 @@ function FaceCam() {
         adjustedBox.box.height,
         0,
         0,
-        scaledDims,
-        scaledDims
+        canvas.width,
+        canvas.height
       );
+      // save the image as url on an <a> element
       const a = document.createElement("a");
       a.href = canvas.toDataURL();
+      // debug commented
       chrome.tabs.create({
         url: a.href,
       });
