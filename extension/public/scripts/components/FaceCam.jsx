@@ -161,10 +161,6 @@ function FaceCam() {
             )
             .withFaceLandmarks(true);
           setFaceDetection(detection);
-          // logging
-          if (detection !== undefined) {
-            console.log("DETECTED FACE");
-          }
         } catch (err) {
           console.log(`DETECTION ERROR: ${err}`);
         }
@@ -204,9 +200,6 @@ function FaceCam() {
       // draw on the canvas with drawBox
       drawBox.draw(canvasRef.current);
       setBoxDrawn(true);
-
-      // logging
-      console.log("DRAWBOX BOX:", drawBox.box);
     }
   }, [faceDetection]);
 
@@ -220,15 +213,22 @@ function FaceCam() {
       canvas.width = canvasRef.current.width;
       canvas.height = canvasRef.current.height;
       const ctx = canvas.getContext("2d");
+      // calculating offset from video resolution to rendered video element size
+      const vidWidthOffset = (1280 - canvasRef.current.width) / 2;
+      const vidHeightOffset = (720 - canvasRef.current.height) / 2;
+      // scaling the image from box size to canvas size
+      const scale = canvas.width / adjustedBox.box.width;
+      const scaledSize = adjustedBox.box.width * scale;
       // draw image on canvas so that it can be set as a URL
       ctx.drawImage(
         videoRef.current,
-        adjustedBox.box.x,
-        adjustedBox.box.y,
+        vidWidthOffset + adjustedBox.box.x,
+        vidHeightOffset + adjustedBox.box.y,
         adjustedBox.box.width,
         adjustedBox.box.height,
         0,
         0,
+        // commented
         canvas.width,
         canvas.height
       );
@@ -239,6 +239,9 @@ function FaceCam() {
       chrome.tabs.create({
         url: a.href,
       });
+      // logging
+      console.log("ADJUSTED BOX WIDTH:", adjustedBox.box.width);
+      console.log("Canvas WIDTH:", canvas.width);
     }
   }, [boxDrawn]);
 
