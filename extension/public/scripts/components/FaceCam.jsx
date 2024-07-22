@@ -13,6 +13,7 @@ function FaceCam() {
   const [modelsLoaded, setModelsLoaded] = useState(false);
   const videoRef = useRef(null); //setting a reference object to assign later to video element
   const canvasRef = useRef(null);
+  const streamObj = { width: 1280, height: 720 };
 
   /**
    * Calculates new coordinates for a given box based on size and offset factors.
@@ -99,8 +100,8 @@ function FaceCam() {
             // commented
             // width: videoRef.current.getBoundingClientRect().width,
             // height: videoRef.current.getBoundingClientRect().height,
-            width: 1280,
-            height: 720,
+            width: streamObj.width,
+            height: streamObj.height,
           },
           audio: false,
         });
@@ -204,6 +205,18 @@ function FaceCam() {
   }, [faceDetection]);
 
   useEffect(() => {
+    function mapVideoToStreamCoordinates(box, canvas) {
+      const mappedX = (box.box.x * streamObj.width) / canvas.width;
+      const mappedY = (box.box.y * streamObj.height) / canvas.height;
+      const mappedWidth = (box.box.width * streamObj.width) / canvas.width;
+      const mappedHeight = (box.box.height * streamObj.height) / canvas.height;
+      return {
+        mappedX: mappedX,
+        mappedY: mappedY,
+        mappedWidth: mappedWidth,
+        mappedHeight: mappedHeight,
+      };
+    }
     // effect to download detected face
     if (boxDrawn && videoRef.current) {
       // get coordinates of the detection box
@@ -213,19 +226,15 @@ function FaceCam() {
       canvas.width = canvasRef.current.width;
       canvas.height = canvasRef.current.height;
       const ctx = canvas.getContext("2d");
-      // calculating offset from video resolution to rendered video element size
-      const vidWidthOffset = (1280 - canvasRef.current.width) / 2;
-      const vidHeightOffset = (720 - canvasRef.current.height) / 2;
-      // scaling the image from box size to canvas size
-      const scale = canvas.width / adjustedBox.box.width;
-      const scaledSize = adjustedBox.box.width * scale;
+      const { mappedX, mappedY, mappedWidth, mappedHeight } =
+        mapVideoToStreamCoordinates(adjustedBox, canvas);
       // draw image on canvas so that it can be set as a URL
       ctx.drawImage(
         videoRef.current,
-        vidWidthOffset + adjustedBox.box.x,
-        vidHeightOffset + adjustedBox.box.y,
-        adjustedBox.box.width,
-        adjustedBox.box.height,
+        mappedX,
+        mappedY,
+        mappedWidth,
+        mappedHeight,
         0,
         0,
         // commented
@@ -239,9 +248,6 @@ function FaceCam() {
       chrome.tabs.create({
         url: a.href,
       });
-      // logging
-      console.log("ADJUSTED BOX WIDTH:", adjustedBox.box.width);
-      console.log("Canvas WIDTH:", canvas.width);
     }
   }, [boxDrawn]);
 
