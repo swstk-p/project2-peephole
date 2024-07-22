@@ -1,8 +1,4 @@
-Commented: video resolution, imgSize for detection in model, open in new tab
-
-TODO0: play with imageSize in face detection model to detect at appropriate ranges (it seems that only video resolution of 720p is appropriate for proper detection)
-     : play with scale factor which adjusts box size and offset size (figure out another way to center the image)
-     : download the image
+TODO0: download the image
 TODO1: Explore datasets and training
      : Load pre-trained models for application building while training custom models side by side
 TODO2: Explore auto-filling
