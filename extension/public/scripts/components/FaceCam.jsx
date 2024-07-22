@@ -97,9 +97,6 @@ function FaceCam() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
           video: {
-            // commented
-            // width: videoRef.current.getBoundingClientRect().width,
-            // height: videoRef.current.getBoundingClientRect().height,
             width: streamObj.width,
             height: streamObj.height,
           },
@@ -156,7 +153,6 @@ function FaceCam() {
               videoRef.current,
               new faceapi.TinyFaceDetectorOptions({
                 size: 96,
-                // size: 32, commented
                 scoreThreshold: 0.3,
               })
             )
@@ -205,11 +201,26 @@ function FaceCam() {
   }, [faceDetection]);
 
   useEffect(() => {
-    function mapVideoToStreamCoordinates(box, canvas) {
-      const mappedX = (box.box.x * streamObj.width) / canvas.width;
-      const mappedY = (box.box.y * streamObj.height) / canvas.height;
-      const mappedWidth = (box.box.width * streamObj.width) / canvas.width;
-      const mappedHeight = (box.box.height * streamObj.height) / canvas.height;
+    /**
+     *
+     * @param {*} box box obtained after adjusting it
+     * @returns object with mappedX, mappedY, mappedWidth and mappedHeight
+     */
+    function mapVideoToStreamCoordinates(box) {
+      const mappedHeight =
+        (box.box.height * streamObj.height) /
+        videoRef.current.getBoundingClientRect().height; //scaling box to video element and mapping to stream height
+      const mappedWidth =
+        (box.box.width * streamObj.height) /
+        videoRef.current.getBoundingClientRect().width; //scaling box to video element but mapping to stream height to keep it square
+      const mappedX =
+        (box.box.x * streamObj.width) /
+          videoRef.current.getBoundingClientRect().width +
+        mappedWidth / 3; // locating coordinate in terms of video -> mapping it to stream (gives width to make a rectangle) -> reducing it to mappedWidth and centering the needed portion (making it a square)
+      const mappedY =
+        (box.box.y * streamObj.height) /
+        videoRef.current.getBoundingClientRect().height; // locating coordinate in terms of video -> mapping it to stream
+
       return {
         mappedX: mappedX,
         mappedY: mappedY,
@@ -237,7 +248,6 @@ function FaceCam() {
         mappedHeight,
         0,
         0,
-        // commented
         canvas.width,
         canvas.height
       );
