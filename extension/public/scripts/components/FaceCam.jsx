@@ -197,6 +197,8 @@ function FaceCam() {
       // draw on the canvas with drawBox
       drawBox.draw(canvasRef.current);
       setBoxDrawn(true);
+      // logging
+      console.log("DRAWN");
     }
   }, [faceDetection]);
 
@@ -228,6 +230,7 @@ function FaceCam() {
         mappedHeight: mappedHeight,
       };
     }
+
     // effect to download detected face
     if (boxDrawn && videoRef.current) {
       // get coordinates of the detection box
@@ -253,7 +256,8 @@ function FaceCam() {
       );
       // save the image as url on an <a> element
       const a = document.createElement("a");
-      a.href = canvas.toDataURL();
+      const imgDataURL = canvas.toDataURL();
+      a.href = imgDataURL;
       // debug commented
       chrome.tabs.create({
         url: a.href,
